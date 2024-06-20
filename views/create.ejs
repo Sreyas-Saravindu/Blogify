@@ -1,0 +1,24 @@
+<%- include("partials/header.ejs") %>
+<h1 class="edit_h">Create a New Post</h1>
+<form action="/create" method="POST">
+  <label for="title"><strong>Title:</strong></label>
+  <input type="text" id="title" name="title" required>
+  <label for="content"><strong>Content:</strong></label>
+  <textarea id="content" name="content" required></textarea>
+  <button class="nav-btn" type="submit">Create Post</button>
+</form>
+<% if (posts.length > 0) { %>
+  <% posts.forEach(post => { %>
+      <article>
+          <h2><%= post.title %></h2>
+          <p><%= post.content %></p>
+         <button class="nav-btn" onclick="window.location.href = '/edit-post/<%= post.id %>'">Edit</button>
+          <form action="/delete-post/<%= post.id %>" method="POST" style="display:inline;">
+          <button class="nav-btn" type="submit" onclick="window.location.href = '/edit-post/<%= post.id %>'">Delete</button>
+          </form>
+      </article>
+  <% }) %>
+<% } else { %>
+  <p class="create_p"><strong>No posts yet!</strong></p>
+<% } %>
+<%- include("partials/footer.ejs") %>
